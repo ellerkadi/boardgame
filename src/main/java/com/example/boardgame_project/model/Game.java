@@ -8,17 +8,18 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Table (name = "users")
+@Table (name = "games")
 @ToString
-public class User {
+public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    private String name;
-    private String username;
-    private String password;
-    private String role;
-    private String email;
+    private String game_name;
+    private String description;
+    private String location;
+    private String game_type;
+    private boolean availability;
+    private String users_username;
 }

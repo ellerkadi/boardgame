@@ -1,10 +1,11 @@
 package com.example.boardgame_project.controller;
 
+import com.example.boardgame_project.model.Game;
+import com.example.boardgame_project.model.User;
 import com.example.boardgame_project.service.BoardService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/boardgame")
@@ -16,4 +17,42 @@ public class BoardController {
     public BoardController(BoardService boardService) {
         this.boardService = boardService;
     }
+
+    @GetMapping("/getAllGames")
+    public List<Game> getAllGames() {
+        return boardService.getAllGames();
+    }
+
+    @PostMapping("/addGame")
+    public String addGame(@RequestBody Game game) {
+        return boardService.addGame(game);
+    }
+
+    @PutMapping("/updateGame/{id}")
+    public Game updateGame(@PathVariable("id") Long id, @RequestBody Game updatedGame) {
+        return boardService.updateGame(id, updatedGame);
+    }
+
+    @DeleteMapping("/deleteGameById")
+    public Long deleteGameById(@PathVariable Long id) {
+        return boardService.deleteGameById(id);
+    }
+
+    @GetMapping("/getAllUsers")
+    public List<User> getAllUsers() {
+        return boardService.getAllUsers();
+    }
+
+    @PostMapping("/addUser")
+    public String addUser(@RequestBody User user) {
+        return boardService.addUser(user);
+    }
+
+    @PutMapping("/updateUser/{id}")
+    public User updateUser(@PathVariable("id") Long id, @RequestBody User updatedUser) {
+        return boardService.updateUser(id, updatedUser);
+    }
+
+
+
 }
