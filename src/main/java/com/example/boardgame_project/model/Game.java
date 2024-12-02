@@ -16,10 +16,10 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    private String game_name;
+    private String gamename;
     private String description;
     private String location;
-    private String game_type;
+    private String gametype;
     private boolean availability;
     private String users_username;
 }

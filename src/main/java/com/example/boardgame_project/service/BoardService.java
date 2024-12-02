@@ -13,10 +13,6 @@ import java.util.List;
 @Transactional
 public class BoardService {
 
-
-
-
-
     private final GameRepository gameRepository;
 
     private final UserRepository userRepository;
@@ -30,19 +26,28 @@ public class BoardService {
         return gameRepository.findAll();
         // see, mida kõik näevad (kõik databaasis olevad mängud)
     }
+
+    public List<Game> findGameByGamename(String gamename) {
+        return gameRepository.findGameByGamename(gamename);
+    }
+
+    /*public List<Game> findGameByAvailability(String availability) {
+        return gameRepository.findGameByAvailability(availability);
+    }*/
+
     public String addGame(Game game) {
         gameRepository.save(game);
-        return game.getGame_name();
+        return game.getGamename();
     }
 
     public Game updateGame(Long id, Game updatedGame) {
         List<Game> databaseGames = getAllGames();
         for (Game existingGame : databaseGames) {
             if (id.equals(existingGame.getId())) {
-                existingGame.setGame_name(updatedGame.getGame_name());
+                existingGame.setGamename(updatedGame.getGamename());
                 existingGame.setDescription(updatedGame.getDescription());
                 existingGame.setLocation(updatedGame.getLocation());
-                existingGame.setGame_type(updatedGame.getGame_type());
+                existingGame.setGametype(updatedGame.getGametype());
                 // existingGame.setAvailability(updatedGame.getAvailability());
                 gameRepository.save(existingGame);
             }

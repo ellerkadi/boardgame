@@ -23,6 +23,16 @@ public class BoardController {
         return boardService.getAllGames();
     }
 
+    @GetMapping("/findGameByGamename/{gamename}")
+    public List<Game> findGameByGamename(@PathVariable("gamename") String gamename) {
+        return boardService.findGameByGamename(gamename);
+    }
+
+    /*@GetMapping("/findGameByAvailability/{availability}")
+    public List<Game> findGameByAvailability(@PathVariable("availability") String availability) {
+        return boardService.findGameByAvailability(availability);
+    }*/
+
     @PostMapping("/addGame")
     public String addGame(@RequestBody Game game) {
         return boardService.addGame(game);
@@ -33,7 +43,7 @@ public class BoardController {
         return boardService.updateGame(id, updatedGame);
     }
 
-    @DeleteMapping("/deleteGameById")
+    @DeleteMapping("/deleteGameById/{id}")
     public Long deleteGameById(@PathVariable Long id) {
         return boardService.deleteGameById(id);
     }
