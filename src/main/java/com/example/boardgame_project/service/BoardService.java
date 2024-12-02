@@ -13,6 +13,8 @@ import java.util.List;
 @Transactional
 public class BoardService {
 
+
+
     private final GameRepository gameRepository;
 
     private final UserRepository userRepository;
