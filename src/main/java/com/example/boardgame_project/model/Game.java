@@ -22,6 +22,7 @@ public class Game {
     private String location;
     private String gametype;
     private boolean availability;
+    private String status;
 
     @ManyToOne
     @JsonBackReference

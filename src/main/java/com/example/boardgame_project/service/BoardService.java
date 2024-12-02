@@ -26,6 +26,26 @@ public class BoardService {
         return gameRepository.findAll();
     }
 
+    public List<Game> approvedGames() {
+        return gameRepository.findByStatus("APPROVED");
+    }
+
+    public List<Game> getPendingGames() {
+        return gameRepository.findByStatus("PENDING");
+    }
+
+    public void approveGame(Long id) {
+        Game game = gameRepository.findById(id).orElseThrow(() -> new RuntimeException("Game not found"));
+        game.setStatus("APPROVED");
+        gameRepository.save(game);
+    }
+
+    public void rejectGame(Long id) {
+        Game game = gameRepository.findById(id).orElseThrow(() -> new RuntimeException("Game not found"));
+        game.setStatus("REJECTED");
+        gameRepository.save(game);
+    }
+
     public List<Game> findGameByUsername(String username) {
         return gameRepository.findByUserUsername(username);
     }
@@ -42,9 +62,9 @@ public class BoardService {
         return gameRepository.findGameByGametype(gametype);
     }
 
-    public String addGame(Game game) {
-        gameRepository.save(game);
-        return game.getGamename();
+    public Game addGame(Game game) {
+        game.setStatus("PENDING");
+        return gameRepository.save(game);
     }
 
     public Game updateGame(Long id, Game updatedGame) {

@@ -23,6 +23,28 @@ public class BoardController {
         return boardService.getAllGames();
     }
 
+    @GetMapping("/approvedGames")
+    public List<Game> approvedGames() {
+        return boardService.approvedGames();
+    }
+
+    @GetMapping("/pendingGames")
+    public List<Game> getPendingGames() {
+        return boardService.getPendingGames();
+    }
+
+    @PostMapping("/approveGame/{id}")
+    public String approveGame(@PathVariable Long id) {
+        boardService.approveGame(id);
+        return "Game approved";
+    }
+
+    @PostMapping("/rejectGame/{id}")
+    public String rejectGame(@PathVariable Long id) {
+        boardService.rejectGame(id);
+        return "Game rejected successfully";
+    }
+
     @GetMapping("/getGamesByUsername/{username}")
     public List<Game> findGameByUsername(@PathVariable("username") String username) {
         return boardService.findGameByUsername(username);
@@ -44,7 +66,7 @@ public class BoardController {
     }
 
     @PostMapping("/addGame")
-    public String addGame(@RequestBody Game game) {
+    public Game addGame(@RequestBody Game game) {
         return boardService.addGame(game);
     }
 

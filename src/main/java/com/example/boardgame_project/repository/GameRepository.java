@@ -12,4 +12,5 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Game> findGameByAvailability(boolean availability);
     List<Game> findGameByGametype(String gametype);
     List<Game> findByUserUsername(String username);
+    List<Game> findByStatus(String status);
 }
