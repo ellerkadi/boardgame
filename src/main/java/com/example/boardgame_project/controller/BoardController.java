@@ -23,15 +23,25 @@ public class BoardController {
         return boardService.getAllGames();
     }
 
+    @GetMapping("/getGamesByUsername/{username}")
+    public List<Game> findGameByUsername(@PathVariable("username") String username) {
+        return boardService.findGameByUsername(username);
+    }
+
     @GetMapping("/findGameByGamename/{gamename}")
     public List<Game> findGameByGamename(@PathVariable("gamename") String gamename) {
         return boardService.findGameByGamename(gamename);
     }
 
-    /*@GetMapping("/findGameByAvailability/{availability}")
-    public List<Game> findGameByAvailability(@PathVariable("availability") String availability) {
+    @GetMapping("/findGameByAvailability/{availability}")
+    public List<Game> findGameByAvailability(@PathVariable("availability") boolean availability) {
         return boardService.findGameByAvailability(availability);
-    }*/
+    }
+
+    @GetMapping("/findGameByGametype/{gametype}")
+    public List<Game> findGameByGametype(@PathVariable("gametype") String gametype) {
+        return boardService.findGameByGametype(gametype);
+    }
 
     @PostMapping("/addGame")
     public String addGame(@RequestBody Game game) {

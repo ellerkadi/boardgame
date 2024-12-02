@@ -1,5 +1,6 @@
 package com.example.boardgame_project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,5 +22,9 @@ public class Game {
     private String location;
     private String gametype;
     private boolean availability;
-    private String users_username;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private User user;
 }

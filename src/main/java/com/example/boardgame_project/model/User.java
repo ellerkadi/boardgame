@@ -1,7 +1,10 @@
 package com.example.boardgame_project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,4 +24,8 @@ public class User {
     private String password;
     private String role;
     private String email;
+
+    @OneToMany(mappedBy = "user")  // mappedBy refers to the 'user' field in the Game entity
+    @JsonBackReference
+    private List<Game> games;
 }

@@ -24,16 +24,23 @@ public class BoardService {
 
     public List<Game> getAllGames() {
         return gameRepository.findAll();
-        // see, mida kõik näevad (kõik databaasis olevad mängud)
+    }
+
+    public List<Game> findGameByUsername(String username) {
+        return gameRepository.findByUserUsername(username);
     }
 
     public List<Game> findGameByGamename(String gamename) {
         return gameRepository.findGameByGamename(gamename);
     }
 
-    /*public List<Game> findGameByAvailability(String availability) {
+    public List<Game> findGameByAvailability(boolean availability) {
         return gameRepository.findGameByAvailability(availability);
-    }*/
+    }
+
+    public List<Game> findGameByGametype(String gametype) {
+        return gameRepository.findGameByGametype(gametype);
+    }
 
     public String addGame(Game game) {
         gameRepository.save(game);
