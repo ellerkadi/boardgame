@@ -53,15 +53,15 @@ public class BoardService {
     }
 
     public List<Game> findGameByGamename(String gamename) {
-        return gameRepository.findGameByGamename(gamename);
+        return gameRepository.findGameByGamename(gamename, "APPROVED");
     }
 
     public List<Game> findGameByAvailability(boolean availability) {
-        return gameRepository.findGameByAvailability(availability);
+        return gameRepository.findGameByAvailability(availability, "APPROVED");
     }
 
     public List<Game> findGameByGametype(String gametype) {
-        return gameRepository.findGameByGametype(gametype);
+        return gameRepository.findGameByGametype(gametype, "APPROVED");
     }
 
     public Game addGame(Game game) {
@@ -79,8 +79,8 @@ public class BoardService {
                 existingGame.setGametype(updatedGame.getGametype());
                 // existingGame.setAvailability(updatedGame.getAvailability());
                 gameRepository.save(existingGame);
+                return existingGame;
             }
-            return existingGame;
         }
         return null;
     }
