@@ -11,17 +11,13 @@ import java.util.List;
 
 @Service
 @Transactional
-public class BoardService {
-
-
-
-
+public class GameService {
 
     private final GameRepository gameRepository;
 
     private final UserRepository userRepository;
 
-    public BoardService(GameRepository gameRepository, UserRepository userRepository) {
+    public GameService(GameRepository gameRepository, UserRepository userRepository) {
         this.gameRepository = gameRepository;
         this.userRepository = userRepository;
     }

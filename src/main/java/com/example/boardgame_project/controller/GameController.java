@@ -2,7 +2,7 @@ package com.example.boardgame_project.controller;
 
 import com.example.boardgame_project.model.Game;
 import com.example.boardgame_project.model.User;
-import com.example.boardgame_project.service.BoardService;
+import com.example.boardgame_project.service.GameService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,91 +10,89 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/boardgame")
 @CrossOrigin(origins = "*")
-public class BoardController {
+public class GameController {
 
-    private final BoardService boardService;
+    private final GameService gameService;
 
-    public BoardController(BoardService boardService) {
-        this.boardService = boardService;
+    public GameController(GameService gameService) {
+        this.gameService = gameService;
     }
 
     @GetMapping("/getAllGames")
     public List<Game> getAllGames() {
-        return boardService.getAllGames();
+        return gameService.getAllGames();
     }
 
     @GetMapping("/approvedGames")
     public List<Game> approvedGames() {
-        return boardService.approvedGames();
+        return gameService.approvedGames();
     }
 
     @GetMapping("/pendingGames")
     public List<Game> getPendingGames() {
-        return boardService.getPendingGames();
+        return gameService.getPendingGames();
     }
 
     @PostMapping("/approveGame/{id}")
     public String approveGame(@PathVariable Long id) {
-        boardService.approveGame(id);
+        gameService.approveGame(id);
         return "Game approved";
     }
 
     @PostMapping("/rejectGame/{id}")
     public String rejectGame(@PathVariable Long id) {
-        boardService.rejectGame(id);
+        gameService.rejectGame(id);
         return "Game rejected successfully";
     }
 
     @GetMapping("/getGamesByUsername/{username}")
     public List<Game> findGameByUsername(@PathVariable("username") String username) {
-        return boardService.findGameByUsername(username);
+        return gameService.findGameByUsername(username);
     }
 
     @GetMapping("/findGameByGamename/{gamename}")
     public List<Game> findGameByGamename(@PathVariable("gamename") String gamename) {
-        return boardService.findGameByGamename(gamename);
+        return gameService.findGameByGamename(gamename);
     }
 
     @GetMapping("/findGameByAvailability/{availability}")
     public List<Game> findGameByAvailability(@PathVariable("availability") boolean availability) {
-        return boardService.findGameByAvailability(availability);
+        return gameService.findGameByAvailability(availability);
     }
 
     @GetMapping("/findGameByGametype/{gametype}")
     public List<Game> findGameByGametype(@PathVariable("gametype") String gametype) {
-        return boardService.findGameByGametype(gametype);
+        return gameService.findGameByGametype(gametype);
     }
 
     @PostMapping("/addGame")
     public Game addGame(@RequestBody Game game) {
-        return boardService.addGame(game);
+        return gameService.addGame(game);
     }
 
     @PutMapping("/updateGame/{id}")
     public Game updateGame(@PathVariable("id") Long id, @RequestBody Game updatedGame) {
-        return boardService.updateGame(id, updatedGame);
+        return gameService.updateGame(id, updatedGame);
     }
 
     @DeleteMapping("/deleteGameById/{id}")
     public Long deleteGameById(@PathVariable Long id) {
-        return boardService.deleteGameById(id);
+        return gameService.deleteGameById(id);
     }
 
     @GetMapping("/getAllUsers")
     public List<User> getAllUsers() {
-        return boardService.getAllUsers();
+        return gameService.getAllUsers();
     }
 
     @PostMapping("/addUser")
     public String addUser(@RequestBody User user) {
-        return boardService.addUser(user);
+        return gameService.addUser(user);
     }
 
     @PutMapping("/updateUser/{id}")
     public User updateUser(@PathVariable("id") Long id, @RequestBody User updatedUser) {
-        return boardService.updateUser(id, updatedUser);
+        return gameService.updateUser(id, updatedUser);
     }
-
-
 
 }
