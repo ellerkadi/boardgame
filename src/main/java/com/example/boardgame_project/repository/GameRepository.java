@@ -14,10 +14,10 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     @Query("SELECT g FROM Game g WHERE g.gamename = :gamename AND g.status = :status")
     List<Game> findGameByGamename(@Param("gamename") String gamename, @Param("status") String status);
 
-    @Query("SELECT g FROM Game g WHERE g.availability = :gamename AND g.status = :status")
+    @Query("SELECT g FROM Game g WHERE g.availability = :availability AND g.status = :status")
     List<Game> findGameByAvailability(@Param("availability")boolean availability, @Param("status") String status);
 
-    @Query("SELECT g FROM Game g WHERE g.gametype = :gamename AND g.status = :status")
+    @Query("SELECT g FROM Game g WHERE g.gametype = :gametype AND g.status = :status")
     List<Game> findGameByGametype(@Param("gametype")String gametype, @Param("status") String status);
 
     List<Game> findByUserUsername(String username);
