@@ -23,8 +23,50 @@ public class BoardController {
         return boardService.getAllGames();
     }
 
+    @GetMapping("/approvedGames")
+    public List<Game> approvedGames() {
+        return boardService.approvedGames();
+    }
+
+    @GetMapping("/pendingGames")
+    public List<Game> getPendingGames() {
+        return boardService.getPendingGames();
+    }
+
+    @PostMapping("/approveGame/{id}")
+    public String approveGame(@PathVariable Long id) {
+        boardService.approveGame(id);
+        return "Game approved";
+    }
+
+    @PostMapping("/rejectGame/{id}")
+    public String rejectGame(@PathVariable Long id) {
+        boardService.rejectGame(id);
+        return "Game rejected successfully";
+    }
+
+    @GetMapping("/getGamesByUsername/{username}")
+    public List<Game> findGameByUsername(@PathVariable("username") String username) {
+        return boardService.findGameByUsername(username);
+    }
+
+    @GetMapping("/findGameByGamename/{gamename}")
+    public List<Game> findGameByGamename(@PathVariable("gamename") String gamename) {
+        return boardService.findGameByGamename(gamename);
+    }
+
+    @GetMapping("/findGameByAvailability/{availability}")
+    public List<Game> findGameByAvailability(@PathVariable("availability") boolean availability) {
+        return boardService.findGameByAvailability(availability);
+    }
+
+    @GetMapping("/findGameByGametype/{gametype}")
+    public List<Game> findGameByGametype(@PathVariable("gametype") String gametype) {
+        return boardService.findGameByGametype(gametype);
+    }
+
     @PostMapping("/addGame")
-    public String addGame(@RequestBody Game game) {
+    public Game addGame(@RequestBody Game game) {
         return boardService.addGame(game);
     }
 
@@ -33,7 +75,7 @@ public class BoardController {
         return boardService.updateGame(id, updatedGame);
     }
 
-    @DeleteMapping("/deleteGameById")
+    @DeleteMapping("/deleteGameById/{id}")
     public Long deleteGameById(@PathVariable Long id) {
         return boardService.deleteGameById(id);
     }

@@ -13,6 +13,8 @@ import java.util.List;
 @Transactional
 public class BoardService {
 
+
+
     private final GameRepository gameRepository;
 
     private final UserRepository userRepository;
@@ -24,21 +26,57 @@ public class BoardService {
 
     public List<Game> getAllGames() {
         return gameRepository.findAll();
-        // see, mida kõik näevad (kõik databaasis olevad mängud)
     }
-    public String addGame(Game game) {
+
+    public List<Game> approvedGames() {
+        return gameRepository.findByStatus("APPROVED");
+    }
+
+    public List<Game> getPendingGames() {
+        return gameRepository.findByStatus("PENDING");
+    }
+
+    public void approveGame(Long id) {
+        Game game = gameRepository.findById(id).orElseThrow(() -> new RuntimeException("Game not found"));
+        game.setStatus("APPROVED");
         gameRepository.save(game);
-        return game.getGame_name();
+    }
+
+    public void rejectGame(Long id) {
+        Game game = gameRepository.findById(id).orElseThrow(() -> new RuntimeException("Game not found"));
+        game.setStatus("REJECTED");
+        gameRepository.save(game);
+    }
+
+    public List<Game> findGameByUsername(String username) {
+        return gameRepository.findByUserUsername(username);
+    }
+
+    public List<Game> findGameByGamename(String gamename) {
+        return gameRepository.findGameByGamename(gamename);
+    }
+
+    public List<Game> findGameByAvailability(boolean availability) {
+        return gameRepository.findGameByAvailability(availability);
+    }
+
+    public List<Game> findGameByGametype(String gametype) {
+        return gameRepository.findGameByGametype(gametype);
+    }
+
+    public Game addGame(Game game) {
+        game.setStatus("PENDING");
+        return gameRepository.save(game);
     }
 
     public Game updateGame(Long id, Game updatedGame) {
         List<Game> databaseGames = getAllGames();
         for (Game existingGame : databaseGames) {
             if (id.equals(existingGame.getId())) {
-                existingGame.setGame_name(updatedGame.getGame_name());
+                existingGame.setGamename(updatedGame.getGamename());
                 existingGame.setDescription(updatedGame.getDescription());
                 existingGame.setLocation(updatedGame.getLocation());
-                existingGame.setGame_type(updatedGame.getGame_type());
+                existingGame.setGametype(updatedGame.getGametype());
                 // existingGame.setAvailability(updatedGame.getAvailability());
                 gameRepository.save(existingGame);
             }

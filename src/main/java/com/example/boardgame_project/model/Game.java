@@ -1,5 +1,6 @@
 package com.example.boardgame_project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,10 +17,15 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     private Long id;
-    private String game_name;
+    private String gamename;
     private String description;
     private String location;
-    private String game_type;
+    private String gametype;
     private boolean availability;
-    private String users_username;
+    private String status;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "username", referencedColumnName = "username")
+    private User user;
 }
