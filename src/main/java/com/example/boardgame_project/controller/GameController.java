@@ -3,6 +3,7 @@ package com.example.boardgame_project.controller;
 import com.example.boardgame_project.model.Game;
 import com.example.boardgame_project.model.User;
 import com.example.boardgame_project.service.GameService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,13 +11,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/boardgame")
 @CrossOrigin(origins = "*")
+@RequiredArgsConstructor
 public class GameController {
 
     private final GameService gameService;
-
-    public GameController(GameService gameService) {
-        this.gameService = gameService;
-    }
 
     @GetMapping("/getAllGames")
     public List<Game> getAllGames() {
