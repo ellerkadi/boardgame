@@ -15,14 +15,19 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    /*@PostMapping("/register")
+    @PostMapping("/register")
     public String register(@RequestBody User user) {
         if (userRepository.findByUsername(user.getUsername()) != null) {
             return "Username already exists!";
         }
+
+        if (user.getRole() == null || user.getRole().isEmpty()) {
+            user.setRole("user"); // Set default role as "user"
+        }
+
         userRepository.save(user);
         return "User registered successfully!";
-    }*/
+    }
 
     @PostMapping("/login")
     public String login(@RequestBody User user) {
