@@ -33,4 +33,7 @@ public class User {
     @OneToMany(mappedBy = "user")  // mappedBy refers to the 'user' field in the Game entity
     @JsonBackReference
     private List<Game> games;
+
+    // peame panema getter ja setter
+
 }
