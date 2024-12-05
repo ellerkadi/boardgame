@@ -1,4 +1,4 @@
-/*
+
 package com.example.boardgame_project.config;
 
 import org.springframework.context.annotation.Bean;
@@ -29,9 +29,9 @@ public class SecurityConfig {
 
         return http.build();
     }
-}*/
-/*
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+}
+
+/*public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenFilter jwtTokenFilter;
 
     public SecurityConfig(JwtTokenFilter jwtTokenFilter) {
@@ -48,6 +48,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
-}
-
-*/
+}*/

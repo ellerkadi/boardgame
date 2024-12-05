@@ -30,12 +30,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody User user) {
-        User existingUser = userRepository.findByUsername(user.getUsername());
-        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            return "Login successful!";
+    public ResponseEntity<String> login(@RequestBody UserLoginRequest request) {
+        User existingUser = userRepository.findByUsername(request.getUsername());
+        if (existingUser != null && existingUser.getPassword().equals(request.getPassword())) {
+            return ResponseEntity.ok("{ \"token\": \"mock-token\" }");
         }
-        return "Invalid username or password.";
+        return ResponseEntity.status(401).body("Invalid username or password");
     }
 
     /*@PostMapping("/change-password")
