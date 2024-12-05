@@ -14,6 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/api/**")
                 .allowedOrigins("http://localhost:8080")  // Adjust frontend URL if needed
                 .allowedMethods("GET", "POST", "DELETE", "OPTIONS")
-                .allowedHeaders("Content-Type");
+                .allowedHeaders("*");
+
     }
 }
