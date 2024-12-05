@@ -1,7 +1,10 @@
 package com.example.boardgame_project.controller;
 
 import com.example.boardgame_project.model.User;
+import com.example.boardgame_project.model.UserLoginRequest;
+import com.example.boardgame_project.repository.UserRepository;
 import com.example.boardgame_project.service.AuthService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthController {
     private final AuthService authService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public AuthController(AuthService authService) {
         this.authService = authService;
@@ -24,9 +30,12 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
-        String token = authService.login(user);
-        return ResponseEntity.ok("Bearer " + token);
+    public String login(@RequestBody User user) {
+        User existingUser = userRepository.findByUsername(user.getUsername());
+        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
+            return "Login successful!";
+        }
+        return "Invalid username or password.";
     }
 
     /*@PostMapping("/change-password")

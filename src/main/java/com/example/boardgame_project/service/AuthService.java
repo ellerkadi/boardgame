@@ -2,9 +2,12 @@ package com.example.boardgame_project.service;
 
  // import com.example.boardgame_project.config.JwtTokenProvider;
 import com.example.boardgame_project.model.User;
+import com.example.boardgame_project.model.UserLoginRequest;
 import com.example.boardgame_project.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 @Transactional
@@ -31,13 +34,14 @@ public class AuthService {
         return "User registered successfully with ID: " + user.getId();
     }
 
-    public String login(User user) {
-        User existingUser = userRepository.findByUsername(user.getUsername());
-        if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
-            return "Login successful!";
+    /*public ResponseEntity<String> login(@RequestBody UserLoginRequest request) {
+        User existingUser = userRepository.findByUsername(request.getUsername());
+        if (existingUser != null && existingUser.getPassword().equals(request.getPassword())) {
+            ResponseEntity token = (existingUser);
+            return ResponseEntity.ok("{\"token\": \"" + token + "\"}");
         }
-        return "Invalid username or password.";
-    }
+        return ResponseEntity.status(401).body("Invalid username or password");
+    }*/
 
    /* public void register(RegisterRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
