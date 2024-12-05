@@ -15,11 +15,8 @@ public class GameService {
 
     private final GameRepository gameRepository;
 
-    private final UserRepository userRepository;
-
-    public GameService(GameRepository gameRepository, UserRepository userRepository) {
+    public GameService(GameRepository gameRepository) {
         this.gameRepository = gameRepository;
-        this.userRepository = userRepository;
     }
 
     public List<Game> getAllGames() {
@@ -87,28 +84,4 @@ public class GameService {
          gameRepository.deleteGameById(enteredId);
          return enteredId;
     }
-
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    public String addUser(User user) {
-        userRepository.save(user);
-        return user.getUsername();
-    }
-
-    public User updateUser(Long id, User updatedUser) {
-        List<User> databaseUsers = getAllUsers();
-        for (User existingUser : databaseUsers) {
-            if (id.equals(existingUser.getId())) {
-                existingUser.setName(updatedUser.getName());
-                existingUser.setPassword(updatedUser.getPassword());
-                existingUser.setEmail(updatedUser.getEmail());
-                userRepository.save(existingUser);
-            }
-            return existingUser;
-        }
-        return null;
-    }
-
 }

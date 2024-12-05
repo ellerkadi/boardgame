@@ -78,19 +78,4 @@ public class GameController {
         return gameService.deleteGameById(id);
     }
 
-    @GetMapping("/getAllUsers")
-    public List<User> getAllUsers() {
-        return gameService.getAllUsers();
-    }
-
-    @PostMapping("/addUser")
-    public String addUser(@RequestBody User user) {
-        return gameService.addUser(user);
-    }
-
-    @PutMapping("/updateUser/{id}")
-    public User updateUser(@PathVariable("id") Long id, @RequestBody User updatedUser) {
-        return gameService.updateUser(id, updatedUser);
-    }
-
 }
