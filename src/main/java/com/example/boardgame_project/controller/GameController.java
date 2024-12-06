@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/boardgame")
-@CrossOrigin(origins = "*")
 @RequiredArgsConstructor
 public class GameController {
 
