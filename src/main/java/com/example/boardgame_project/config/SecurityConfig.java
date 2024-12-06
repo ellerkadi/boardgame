@@ -1,51 +1,53 @@
-
 package com.example.boardgame_project.config;
 
+import com.example.boardgame_project.config.JwtRequestFilter;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private final JwtRequestFilter jwtRequestFilter;
+
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter) {
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authz -> authz
-                .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                .requestMatchers(HttpMethod.GET, "/**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/**").permitAll()
-                .requestMatchers(HttpMethod.DELETE, "/**").permitAll()
-                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Allow OPTIONS requests
-                .anyRequest().authenticated()
-        );
-
-        // Disabling CSRF (use with caution)
-        http.csrf(AbstractHttpConfigurer::disable);
+        http.csrf().disable()
+                .authorizeHttpRequests(authz -> authz
+                        .requestMatchers("/api/auth/login", "/api/auth/register").permitAll()
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                .cors(cors -> cors.configurationSource(request -> {
+                    CorsConfiguration config = new CorsConfiguration();
+                    config.setAllowedOrigins(Arrays.asList("http://localhost:8080"));
+                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                    config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type", "Accept"));
+                    config.setAllowCredentials(true);
+                    return config;
+                }));
 
         return http.build();
     }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 }
-
-/*public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private final JwtTokenFilter jwtTokenFilter;
-
-    public SecurityConfig(JwtTokenFilter jwtTokenFilter) {
-        this.jwtTokenFilter = jwtTokenFilter;
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .authorizeRequests()
-                .antMatchers("/auth/register", "/auth/login").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-    }
-
-}*/
