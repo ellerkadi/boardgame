@@ -14,9 +14,16 @@ import java.util.List;
 public class GameService {
 
     private final GameRepository gameRepository;
+    private final UserRepository userRepository;
 
-    public GameService(GameRepository gameRepository) {
+    public GameService(GameRepository gameRepository, UserRepository userRepository) {
         this.gameRepository = gameRepository;
+        this.userRepository = userRepository;
+
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
     public List<Game> getAllGames() {
@@ -60,8 +67,15 @@ public class GameService {
     }
 
     public Game addGame(Game game) {
-        game.setStatus("PENDING");
-        return gameRepository.save(game);
+        User user = userRepository.findByUsername(game.getUser().getUsername());
+
+        if (user != null) {
+            game.setUser(user);  // Set the User object properly
+            game.setStatus("PENDING");  // Set the default status to "PENDING"
+            return gameRepository.save(game);  // Save the game to the repository
+        } else {
+            throw new RuntimeException("User not found");  // Handle if user is not found
+        }
     }
 
     public Game updateGame(Long id, Game updatedGame) {
@@ -81,7 +95,7 @@ public class GameService {
     }
 
     public Long deleteGameById(Long enteredId) {
-         gameRepository.deleteGameById(enteredId);
-         return enteredId;
+        gameRepository.deleteGameById(enteredId);
+        return enteredId;
     }
 }
