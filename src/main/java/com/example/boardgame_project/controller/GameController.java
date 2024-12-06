@@ -64,6 +64,7 @@ public class GameController {
 
     @PostMapping("/addGame")
     public Game addGame(@RequestBody Game game) {
+        System.out.println("Received game: " + game);
         return gameService.addGame(game);
     }
 
