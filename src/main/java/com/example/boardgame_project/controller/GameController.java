@@ -4,6 +4,8 @@ import com.example.boardgame_project.model.Game;
 import com.example.boardgame_project.model.User;
 import com.example.boardgame_project.service.GameService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -63,9 +65,15 @@ public class GameController {
     }
 
     @PostMapping("/addGame")
-    public Game addGame(@RequestBody Game game) {
-        System.out.println("Received game: " + game);
-        return gameService.addGame(game);
+    public ResponseEntity<Game> addGame(@RequestBody Game game) {
+        try {
+            System.out.println("Received game: " + game);
+            Game savedGame = gameService.addGame(game);  // This calls the service method to save the game
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedGame);  // Return the saved game with HTTP 201 status
+        } catch (RuntimeException e) {
+            // Handle the case where user is not found or any other error
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     @PutMapping("/updateGame/{id}")

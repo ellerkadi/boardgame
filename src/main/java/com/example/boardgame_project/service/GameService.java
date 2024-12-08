@@ -67,14 +67,15 @@ public class GameService {
     }
 
     public Game addGame(Game game) {
-        User user = userRepository.findByUsername(game.getUser().getUsername());
+        String username = game.getUser().getUsername();  // Get the username from the Game object
+        User user = userRepository.findByUsername(username);  // Find the user by username
 
         if (user != null) {
-            game.setUser(user);  // Set the User object properly
+            game.setUser(user);  // Set the found User object to the Game entity
             game.setStatus("PENDING");  // Set the default status to "PENDING"
-            return gameRepository.save(game);  // Save the game to the repository
+            return gameRepository.save(game);  // Save the game to the repository and return it
         } else {
-            throw new RuntimeException("User not found");  // Handle if user is not found
+            throw new RuntimeException("User not found");  // Handle user not found scenario
         }
     }
 
