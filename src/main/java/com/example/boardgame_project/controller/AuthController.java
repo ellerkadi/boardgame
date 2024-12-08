@@ -39,6 +39,7 @@ public class AuthController {
             UserResponse response = new UserResponse();
             response.setUsername(existingUser.getUsername());
             response.setRole(existingUser.getRole());
+            response.setToken(token);
 
             return ResponseEntity.ok(response);
         }

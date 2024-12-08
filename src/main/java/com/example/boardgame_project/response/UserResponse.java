@@ -1,23 +1,14 @@
 package com.example.boardgame_project.response;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
 public class UserResponse {
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     private String username;
     private String role;
-
+    private String token;
 }
