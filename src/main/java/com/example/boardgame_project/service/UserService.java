@@ -21,6 +21,10 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    //public List<User> getUserRole() {
+    //    return userRepository.;
+    //}
+
     public String addUser(User user) {
         userRepository.save(user);
         return user.getUsername();
