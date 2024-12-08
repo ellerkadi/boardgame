@@ -52,7 +52,10 @@ public class GameService {
 
     public List<Game> findGameByUsername(String username) {
         System.out.println("Fetching games for username: " + username);
-        return gameRepository.findByUserUsername(username);
+        final List<Game> gamesByUser = gameRepository.findByUserUsername(username);
+        return gamesByUser.stream()
+                .filter(game -> !"PENDING".equalsIgnoreCase(game.getStatus()))
+                .toList();
     }
 
     public List<Game> findGameByGamename(String gamename) {
