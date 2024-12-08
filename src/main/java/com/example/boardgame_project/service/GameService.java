@@ -51,6 +51,7 @@ public class GameService {
     }
 
     public List<Game> findGameByUsername(String username) {
+        System.out.println("Fetching games for username: " + username);
         return gameRepository.findByUserUsername(username);
     }
 

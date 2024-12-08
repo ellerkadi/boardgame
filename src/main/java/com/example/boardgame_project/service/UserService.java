@@ -21,9 +21,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    //public List<User> getUserRole() {
-    //    return userRepository.;
-    //}
+    public List<User> getUserRole() {
+        return userRepository.findAll();
+    }
 
     public String addUser(User user) {
         userRepository.save(user);
