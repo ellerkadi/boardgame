@@ -4,6 +4,7 @@ import com.example.boardgame_project.config.JwtUtil;
 import com.example.boardgame_project.model.User;
 import com.example.boardgame_project.model.UserLoginRequest;
 import com.example.boardgame_project.repository.UserRepository;
+import com.example.boardgame_project.response.UserResponse;
 import com.example.boardgame_project.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,15 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginRequest request) {
         User existingUser = userRepository.findByUsername(request.getUsername());
+
         if (existingUser != null && existingUser.getPassword().equals(request.getPassword())) {
             String token = jwtUtil.generateToken(existingUser.getUsername());
-            return ResponseEntity.ok("{ \"token\": \"" + token + "\" }");
+
+            UserResponse response = new UserResponse();
+            response.setUsername(existingUser.getUsername());
+            response.setRole(existingUser.getRole());
+
+            return ResponseEntity.ok(response);
         }
         return ResponseEntity.status(401).body("Invalid username or password");
     }
