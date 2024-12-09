@@ -22,7 +22,6 @@ public class Game {
     private String location;
     private String gametype;
 
-    @Column(nullable = false)
     private String availability;
 
     private String status;
