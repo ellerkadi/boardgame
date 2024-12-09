@@ -24,6 +24,9 @@ public class JwtUtil {
     public String extractUsername(String token) {
         return extractClaims(token).getSubject();
     }
+  //  public String extractEmail(String token) {
+  //      return extractClaims(token).get("email", String.class);  // Extract the email from the token
+  //  }
 
     public boolean validateToken(String token, String username) {
         return (username.equals(extractUsername(token)) && !isTokenExpired(token));
