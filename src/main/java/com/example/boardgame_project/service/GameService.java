@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -117,4 +118,11 @@ public class GameService {
         gameRepository.deleteGameById(enteredId);
         return enteredId;
     }
+
+    public User getUserByGameId(final Long id) {
+        Optional<Game> gameById = gameRepository.findById(id);
+        return gameById.map(Game::getUser)
+                .orElseThrow(() -> new RuntimeException("This game id is invalid"));// get the game, if the game doesn't exist we say game id is invalid
+    }
+
 }

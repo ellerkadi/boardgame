@@ -86,4 +86,8 @@ public class GameController {
        return gameService.deleteGameById(id);
     }
 
+    @GetMapping("/getUserByGame/{id}")
+    public User getUserByGame(@PathVariable("id") Long gameId) {
+        return gameService.getUserByGameId(gameId);
+    }
 }

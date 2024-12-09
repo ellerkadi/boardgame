@@ -1,11 +1,14 @@
 package com.example.boardgame_project.service;
 
+import com.example.boardgame_project.model.Game;
 import com.example.boardgame_project.model.User;
+import com.example.boardgame_project.repository.GameRepository;
 import com.example.boardgame_project.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -43,6 +46,4 @@ public class UserService {
         }
         return null;
     }
-
-
 }
