@@ -83,7 +83,7 @@ public class GameController {
 
     @DeleteMapping("/deleteGameById/{id}")
     public Long deleteGameById(@PathVariable Long id) {
-        return gameService.deleteGameById(id);
+       return gameService.deleteGameById(id);
     }
 
 }
