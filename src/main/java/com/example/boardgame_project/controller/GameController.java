@@ -55,7 +55,7 @@ public class GameController {
     }
 
     @GetMapping("/findGameByAvailability/{availability}")
-    public List<Game> findGameByAvailability(@PathVariable("availability") boolean availability) {
+    public List<Game> findGameByAvailability(@PathVariable("availability") String availability) {
         return gameService.findGameByAvailability(availability);
     }
 
