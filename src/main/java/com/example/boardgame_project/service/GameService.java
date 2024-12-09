@@ -64,7 +64,10 @@ public class GameService {
         return gameRepository.findGameByGamename(gamename, "APPROVED");
     }
 
-    public List<Game> findGameByAvailability(boolean availability) {
+    public List<Game> findGameByAvailability(String availability) {
+        if (!availability.equals("Available") && !availability.equals("Not Available")) {
+            throw new IllegalArgumentException("Invalid availability value");
+        }
         return gameRepository.findGameByAvailability(availability, "APPROVED");
     }
 
@@ -93,7 +96,16 @@ public class GameService {
                 existingGame.setDescription(updatedGame.getDescription());
                 existingGame.setLocation(updatedGame.getLocation());
                 existingGame.setGametype(updatedGame.getGametype());
-                // existingGame.setAvailability(updatedGame.getAvailability());
+                String availability = updatedGame.getAvailability();
+                if ("true".equalsIgnoreCase(availability)) {
+                    existingGame.setAvailability("Available");
+                } else if ("false".equalsIgnoreCase(availability)) {
+                    existingGame.setAvailability("Not Available");
+                } else if ("Available".equalsIgnoreCase(availability) || "Not Available".equalsIgnoreCase(availability)) {
+                    existingGame.setAvailability(availability);
+                } else {
+                    throw new IllegalArgumentException("Invalid availability value: " + availability);
+                }
                 gameRepository.save(existingGame);
                 return existingGame;
             }

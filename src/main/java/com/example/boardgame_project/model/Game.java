@@ -21,7 +21,10 @@ public class Game {
     private String description;
     private String location;
     private String gametype;
-    private boolean availability;
+
+    @Column(nullable = false)
+    private String availability;
+
     private String status;
 
     @ManyToOne
