@@ -33,8 +33,11 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/auth/login", "/api/auth/register",
-                                "/api/boardgame/approvedGames", "/api/boardgame/addGame",
-                                "/api/boardgame/getGamesByUsername/{username}").permitAll()
+                                "/api/boardgame/approvedGames",
+                                "/api/boardgame/getGamesByUsername/{username}",
+                                "api/boardgame/findGameByAvailability/{availability}",
+                                "api/boardgame/findGameByGametype/{gametype}",
+                                "api/boardgame/findGameByGamename/{gamename}").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(cors -> cors.configurationSource(request -> {

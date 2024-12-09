@@ -45,9 +45,11 @@ public class GameService {
     }
 
     public void rejectGame(Long id) {
-        Game game = gameRepository.findById(id).orElseThrow(() -> new RuntimeException("Game not found"));
-        game.setStatus("REJECTED");
-        gameRepository.save(game);
+        if (gameRepository.existsById(id)) {
+            gameRepository.deleteGameById(id);
+        } else {
+            throw new RuntimeException("Game not found");
+        }
     }
 
     public List<Game> findGameByUsername(String username) {
