@@ -21,10 +21,9 @@ public class Game {
     private String description;
     private String location;
     private String gametype;
-
     private String availability;
-
     private String status;
+    private String picture;
 
     @ManyToOne
     @JsonBackReference

@@ -20,7 +20,6 @@ public class GameService {
     public GameService(GameRepository gameRepository, UserRepository userRepository) {
         this.gameRepository = gameRepository;
         this.userRepository = userRepository;
-
     }
 
     public List<User> getAllUsers() {
