@@ -7,7 +7,6 @@ import com.example.boardgame_project.repository.UserRepository;
 import com.example.boardgame_project.response.UserResponse;
 import com.example.boardgame_project.service.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +39,7 @@ public class AuthController {
             response.setUsername(existingUser.getUsername());
             response.setRole(existingUser.getRole());
             response.setToken(token);
-
+            response.setName(existingUser.getName());
             return ResponseEntity.ok(response);
         }
         return ResponseEntity.status(401).body("Invalid username or password");
