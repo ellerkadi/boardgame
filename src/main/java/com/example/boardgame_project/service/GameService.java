@@ -61,7 +61,7 @@ public class GameService {
     }
 
     public List<Game> findGameByGamename(String gamename) {
-        return gameRepository.findGameByGamename(gamename, "APPROVED");
+        return gameRepository.findGameByGamename(gamename.toUpperCase(), "APPROVED");
     }
 
     public List<Game> findGameByAvailability(String availability) {
