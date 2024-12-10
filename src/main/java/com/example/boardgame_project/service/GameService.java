@@ -27,11 +27,19 @@ public class GameService {
     }
 
     public List<Game> getAllGames() {
-        return gameRepository.findAll();
+        List<Game> games = gameRepository.findAll();
+        for (Game game : games) {
+            System.out.println("Formatted gametypes: " + game.formattedGametypes());
+        }
+        return games;
     }
 
     public List<Game> approvedGames() {
-        return gameRepository.findByStatus("APPROVED");
+        List<Game> games = gameRepository.findByStatus("APPROVED");
+        for (Game game : games) {
+            System.out.println("Formatted gametypes: " + game.formattedGametypes());
+        }
+        return games;
     }
 
     public List<Game> getPendingGames() {
@@ -95,7 +103,8 @@ public class GameService {
                 existingGame.setGamename(updatedGame.getGamename());
                 existingGame.setDescription(updatedGame.getDescription());
                 existingGame.setLocation(updatedGame.getLocation());
-                existingGame.setGametype(updatedGame.getGametype());
+                existingGame.setGametypes(updatedGame.getGametypes());
+                existingGame.setPicture(updatedGame.getPicture());
                 String availability = updatedGame.getAvailability();
                 if ("true".equalsIgnoreCase(availability)) {
                     existingGame.setAvailability("Available");

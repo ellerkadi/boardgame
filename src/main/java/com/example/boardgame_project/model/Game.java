@@ -1,8 +1,13 @@
 package com.example.boardgame_project.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,10 +25,25 @@ public class Game {
     private String gamename;
     private String description;
     private String location;
-    private String gametype;
     private String availability;
     private String status;
     private String picture;
+
+    @ElementCollection
+    @CollectionTable(name = "game_types", joinColumns = @JoinColumn(name = "game_id"))
+    @Column(name = "gametype")
+    private Set<String> gametypes;
+
+    @JsonProperty("arrayGametypes")
+    public List<String> arrayGametypes() {
+        return new ArrayList<>(this.gametypes);
+    }
+
+    @Transient
+    @JsonProperty("gametypes")
+    public String formattedGametypes() {
+        return String.join(", ", this.gametypes);
+    }
 
     @ManyToOne
     @JsonBackReference

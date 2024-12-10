@@ -38,8 +38,6 @@ public class GameController {
         return "Game approved";
     }
 
-
-
     @PostMapping("/rejectGame/{id}")
     public String rejectGame(@PathVariable Long id) {
         gameService.rejectGame(id);
