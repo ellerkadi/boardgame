@@ -11,7 +11,7 @@ import java.util.List;
 public interface GameRepository extends JpaRepository<Game, Long> {
     void deleteGameById(Long id);
 
-    @Query("SELECT g FROM Game g WHERE UPPER (g.gamename) = UPPER(:gamename) AND g.status = :status")
+    @Query("SELECT g FROM Game g WHERE UPPER(g.gamename) LIKE CONCAT('%', UPPER(:gamename), '%') AND g.status = :status")
     List<Game> findGameByGamename(@Param("gamename") String gamename, @Param("status") String status);
 
     @Query("SELECT g FROM Game g WHERE g.availability = :availability AND g.status = :status")
