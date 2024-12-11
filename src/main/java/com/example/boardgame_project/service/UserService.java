@@ -28,6 +28,16 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public User findUserByUsername(String username) {
+        List<User> databaseUsers = getAllUsers();
+        for (User existingUser : databaseUsers) {
+            if (username.equals(existingUser.getUsername())) {
+                return existingUser;
+            }
+        }
+        return null;
+    }
+
     public String addUser(User user) {
         userRepository.save(user);
         return user.getUsername();
@@ -41,8 +51,8 @@ public class UserService {
                 existingUser.setPassword(updatedUser.getPassword());
                 existingUser.setEmail(updatedUser.getEmail());
                 userRepository.save(existingUser);
+                return existingUser;
             }
-            return existingUser;
         }
         return null;
     }

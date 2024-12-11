@@ -24,6 +24,11 @@ public class UserController {
         return userService.getUserRole();
     }
 
+    @GetMapping("/getUserByUsername/{username}")
+    public User findUserByUsername(@PathVariable("username") String username) {
+        return userService.findUserByUsername(username);
+    }
+
     @PostMapping("/addUser")
     public String addUser(@RequestBody User user) {
         return userService.addUser(user);
