@@ -22,10 +22,6 @@ public class GameService {
         this.userRepository = userRepository;
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
     public List<Game> getAllGames() {
         return gameRepository.findAll();
     }

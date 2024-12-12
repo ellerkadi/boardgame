@@ -29,11 +29,6 @@ public class UserController {
         return userService.findUserByUsername(username);
     }
 
-    @PostMapping("/addUser")
-    public String addUser(@RequestBody User user) {
-        return userService.addUser(user);
-    }
-
     @PutMapping("/updateUser/{id}")
     public User updateUser(@PathVariable("id") Long id, @RequestBody User updatedUser) {
         return userService.updateUser(id, updatedUser);

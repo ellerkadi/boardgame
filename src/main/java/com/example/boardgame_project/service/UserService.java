@@ -1,15 +1,11 @@
 package com.example.boardgame_project.service;
 
-import com.example.boardgame_project.model.Game;
 import com.example.boardgame_project.model.User;
-import com.example.boardgame_project.repository.GameRepository;
 import com.example.boardgame_project.repository.UserRepository;
-import com.example.boardgame_project.service.PasswordService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -39,11 +35,6 @@ public class UserService {
             }
         }
         return null;
-    }
-
-    public String addUser(User user) {
-        userRepository.save(user);
-        return user.getUsername();
     }
 
     public User updateUser(Long id, User updatedUser) {
