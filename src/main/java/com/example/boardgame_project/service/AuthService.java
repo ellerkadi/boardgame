@@ -41,25 +41,4 @@ public class AuthService {
         }
         return null;
     }
-    /*public ResponseEntity<String> login(@RequestBody UserLoginRequest request) {
-        User existingUser = userRepository.findByUsername(request.getUsername());
-        if (existingUser != null && existingUser.getPassword().equals(request.getPassword())) {
-            ResponseEntity token = (existingUser);
-            return ResponseEntity.ok("{\"token\": \"" + token + "\"}");
-        }
-        return ResponseEntity.status(401).body("Invalid username or password");
-    }*/
-
-   /*
-
-    public void changePassword(ChangePasswordRequest request) {
-        User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
-            throw new RuntimeException("Old password is incorrect");
-        }
-        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-        userRepository.save(user);
-    }*/
-
 }

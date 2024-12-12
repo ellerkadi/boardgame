@@ -31,11 +31,5 @@ public class AuthController {
                 ResponseEntity.status(401).body("Invalid username or password")
                 : ResponseEntity.ok(login);
     }
-
-    /*@PostMapping("/change-password")
-    public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
-        authService.changePassword(request);
-        return ResponseEntity.ok("Password changed successfully");
-    }*/
 }
 
