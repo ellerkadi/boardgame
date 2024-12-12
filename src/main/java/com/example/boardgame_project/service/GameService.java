@@ -27,19 +27,11 @@ public class GameService {
     }
 
     public List<Game> getAllGames() {
-        List<Game> games = gameRepository.findAll();
-        for (Game game : games) {
-            System.out.println("Formatted gametypes: " + game.formattedGametypes());
-        }
-        return games;
+        return gameRepository.findAll();
     }
 
     public List<Game> approvedGames() {
-        List<Game> games = gameRepository.findByStatus("APPROVED");
-        for (Game game : games) {
-            System.out.println("Formatted gametypes: " + game.formattedGametypes());
-        }
-        return games;
+        return gameRepository.findByStatus("APPROVED");
     }
 
     public List<Game> getPendingGames() {

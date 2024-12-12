@@ -1,9 +1,7 @@
 package com.example.boardgame_project.controller;
 
-import com.example.boardgame_project.config.JwtUtil;
 import com.example.boardgame_project.model.User;
 import com.example.boardgame_project.model.UserLoginRequest;
-import com.example.boardgame_project.repository.UserRepository;
 import com.example.boardgame_project.response.UserResponse;
 import com.example.boardgame_project.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
-    private final JwtUtil jwtUtil;
-    private final UserRepository userRepository;
 
 
     @PostMapping("/register")
@@ -30,21 +26,11 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserLoginRequest request) {
-        User existingUser = userRepository.findByUsername(request.getUsername());
-
-        if (existingUser != null && existingUser.getPassword().equals(request.getPassword())) {
-            String token = jwtUtil.generateToken(existingUser.getUsername());
-
-            UserResponse response = new UserResponse();
-            response.setUsername(existingUser.getUsername());
-            response.setRole(existingUser.getRole());
-            response.setToken(token);
-            response.setName(existingUser.getName());
-            return ResponseEntity.ok(response);
-        }
-        return ResponseEntity.status(401).body("Invalid username or password");
+        UserResponse login = authService.login(request);
+        return login==null ?
+                ResponseEntity.status(401).body("Invalid username or password")
+                : ResponseEntity.ok(login);
     }
-
 
     /*@PostMapping("/change-password")
     public ResponseEntity<String> changePassword(@RequestBody ChangePasswordRequest request) {
