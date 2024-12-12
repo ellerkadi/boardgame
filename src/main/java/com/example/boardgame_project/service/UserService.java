@@ -4,6 +4,7 @@ import com.example.boardgame_project.model.Game;
 import com.example.boardgame_project.model.User;
 import com.example.boardgame_project.repository.GameRepository;
 import com.example.boardgame_project.repository.UserRepository;
+import com.example.boardgame_project.service.PasswordService;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,11 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordService passwordService;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordService passwordService) {
         this.userRepository = userRepository;
+        this.passwordService = passwordService;
     }
 
     public List<User> getAllUsers() {
@@ -48,8 +51,13 @@ public class UserService {
         for (User existingUser : databaseUsers) {
             if (id.equals(existingUser.getId())) {
                 existingUser.setName(updatedUser.getName());
-                existingUser.setPassword(updatedUser.getPassword());
                 existingUser.setEmail(updatedUser.getEmail());
+
+                if (updatedUser.getPassword() != null && !updatedUser.getPassword().isEmpty()) {
+                    String encryptedPassword = passwordService.encryptPassword(updatedUser.getPassword());
+                    existingUser.setPassword(encryptedPassword);
+                }
+
                 userRepository.save(existingUser);
                 return existingUser;
             }
