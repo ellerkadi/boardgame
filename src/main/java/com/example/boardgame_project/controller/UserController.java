@@ -19,11 +19,6 @@ public class UserController {
         return userService.getAllUsers();
     }
 
-    @GetMapping("/getUserRole")
-    public List<User> getUserRole() {
-        return userService.getUserRole();
-    }
-
     @GetMapping("/getUserByUsername/{username}")
     public User findUserByUsername(@PathVariable("username") String username) {
         return userService.findUserByUsername(username);

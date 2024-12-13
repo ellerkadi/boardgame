@@ -23,10 +23,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public List<User> getUserRole() {
-        return userRepository.findAll();
-    }
-
     public User findUserByUsername(String username) {
         List<User> databaseUsers = getAllUsers();
         for (User existingUser : databaseUsers) {
